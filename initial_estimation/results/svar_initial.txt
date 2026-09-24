@@ -1,0 +1,117 @@
+
+============================================================
+INITIAL AUSTRALIAN DOLLAR SVAR
+============================================================
+Sample: 1995Q1 to 2026Q2
+Observations: 126
+
+VAR estimated successfully.
+Number of endogenous variables: 7
+Lag order: 2
+Foreign-block variables: 3
+
+============================================================
+VAR STABILITY
+============================================================
+Maximum companion root: 0.9752
+VAR is stable.
+
+============================================================
+REDUCED-FORM RESIDUAL COVARIANCE MATRIX
+============================================================
+                              USRealGDP    CommodityPrices      VIX       AustralianRealGDP    TrimmedMeanInflation    AU_US2yrSpread    RealTWI
+                              _________    _______________    ________    _________________    ____________________    ______________    _______
+
+    US Real GDP                  1.4866         3.1895         -5.6155          0.69566               0.068997            -0.081388       1.9413
+    Commodity Prices             3.1895         77.463          21.936            0.699                0.35655             -0.83488       18.385
+    VIX                         -5.6155         21.936          463.27          -1.6926               -0.34893              -1.1015      -29.826
+    Australian Real GDP         0.69566          0.699         -1.6926          0.74604               0.041527            -0.011857      0.82051
+    Trimmed Mean Inflation     0.068997        0.35655        -0.34893         0.041527               0.036104           -0.0088698      0.16756
+    AU-US 2yr Spread          -0.081388       -0.83488         -1.1015        -0.011857             -0.0088698              0.13565      0.16123
+    Real TWI                     1.9413         18.385         -29.826          0.82051                0.16756              0.16123       17.213
+
+
+============================================================
+CHOLESKY IMPACT MATRIX B
+============================================================
+                              USRealGDP    CommodityPrices       VIX       AustralianRealGDP    TrimmedMeanInflation    AU_US2yrSpread    RealTWI
+                              _________    _______________    _________    _________________    ____________________    ______________    _______
+
+    US Real GDP                  1.2193               0               0               0                      0                   0             0 
+    Commodity Prices             2.6159          8.4036               0               0                      0                   0             0 
+    VIX                         -4.6057           4.044          20.633               0                      0                   0             0 
+    Australian Real GDP         0.57056       -0.094428        0.063833         0.63836                      0                   0             0 
+    Trimmed Mean Inflation     0.056589        0.024813       -0.009143        0.019059                0.17844                   0             0 
+    AU-US 2yr Spread          -0.066751        -0.07857       -0.052887        0.034753              -0.024036             0.34705             0 
+    Real TWI                     1.5922          1.6922         -1.4218         0.25477               0.098712             0.91855         2.979 
+
+
+============================================================
+HEADLINE RTWI RESPONSES
+============================================================
+
+Commodity-price shock (+10%):
+Impact RTWI response: 2.014%
+Largest absolute RTWI response: 3.110% at horizon 8
+
+VIX shock (+10%):
+Impact RTWI response: -0.689%
+Largest absolute RTWI response: -0.689% at horizon 0
+
+AU-US 2yr spread shock (+100bp):
+Impact RTWI response: 2.647%
+Largest absolute RTWI response: 3.613% at horizon 2
+
+============================================================
+REAL TWI FORECAST-ERROR VARIANCE DECOMPOSITION
+============================================================
+                                 H1         H4         H8        H12        H20        H40  
+                              ________    _______    _______    ______    _______    _______
+
+    US Real GDP                 14.727     8.7951     6.9045    6.8627     8.7806     13.453
+    Commodity Prices            16.635     20.178      32.34    40.782     48.695     52.784
+    VIX                         11.745     6.6521     4.7438    3.9171     3.1385     2.6066
+    Australian Real GDP        0.37709    0.60454    0.42178    0.3419    0.28632    0.24019
+    Trimmed Mean Inflation    0.056609     1.3331     5.3105    6.1114     5.3751     4.1715
+    AU-US 2yr Spread            4.9017     7.1909     9.0818    9.9538     10.228     9.0666
+    Real TWI                    51.558     55.246     41.198    32.032     23.497     17.678
+
+
+============================================================
+HEADLINE CONTRIBUTORS TO REAL TWI VARIANCE
+============================================================
+                                   H1        H4        H8       H12       H20       H40  
+                                 ______    ______    ______    ______    ______    ______
+
+    CommodityPrices              16.635    20.178     32.34    40.782    48.695    52.784
+    VIX                          11.745    6.6521    4.7438    3.9171    3.1385    2.6066
+    AU_US_2yrSpread              4.9017    7.1909    9.0818    9.9538    10.228    9.0666
+    ResidualExchangeRateShock    51.558    55.246    41.198    32.032    23.497    17.678
+
+
+============================================================
+GROUPED REAL TWI FEVD
+============================================================
+                                   H1        H4        H8       H12       H20       H40  
+                                 ______    ______    ______    ______    ______    ______
+
+    GlobalExternal               43.107    35.625    43.988    51.561    60.614    68.843
+    AustralianMacro              0.4337    1.9376    5.7322    6.4533    5.6614    4.4117
+    RelativeRates                4.9017    7.1909    9.0818    9.9538    10.228    9.0666
+    ResidualExchangeRateShock    51.558    55.246    41.198    32.032    23.497    17.678
+
+
+============================================================
+INITIAL SVAR COMPLETE
+============================================================
+Sample: 1995Q1 to 2026Q2
+T = 126
+N = 7
+p = 2
+Maximum VAR root = 0.9752
+
+Results saved to:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/svar_initial.mat
+
+FEVD tables saved to:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/svar_initial_fevd.xlsx

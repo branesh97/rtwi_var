@@ -1,0 +1,122 @@
+
+============================================================
+HD ORDERING ROBUSTNESS
+============================================================
+Sample: 1995Q1 to 2026Q2
+T = 126
+
+============================================================
+MODEL A_Baseline
+============================================================
+Maximum root: 0.9752
+Maximum HD accounting error: 1.364e-12
+
+============================================================
+MODEL B_VIX_before_Commodity
+============================================================
+Maximum root: 0.9752
+Maximum HD accounting error: 1.876e-12
+
+============================================================
+MODEL C_RTWI_before_Spread
+============================================================
+Maximum root: 0.9752
+Maximum HD accounting error: 1.364e-12
+
+============================================================
+MODEL D_Swap_Both
+============================================================
+Maximum root: 0.9752
+Maximum HD accounting error: 1.876e-12
+
+============================================================
+REDUCED-FORM INVARIANCE CHECK
+============================================================
+Maximum actual RTWI difference:      0
+Maximum baseline difference:         0
+Maximum total-shock difference:      6.75015598972e-13
+
+============================================================
+PAIR-GROUP HD INVARIANCE CHECK
+============================================================
+Max difference Commodity + VIX:      2.52242671195e-13
+Max difference Spread + Residual FX: 5.10480546723e-13
+
+============================================================
+EPISODE HD ACROSS ORDERINGS
+============================================================
+             Model                        Ordering                          Episode                  Start           End        ActualChange    BaselineDynamics    GlobalActivity    CommodityPrices      VIX       DomesticMacro    RelativeYields    ResidualFX    CommodityPlusVIX    YieldPlusResidualFX
+    ________________________    _____________________________    _____________________________    ___________    ___________    ____________    ________________    ______________    _______________    ________    _____________    ______________    __________    ________________    ___________________
+
+    "A_Baseline"                "A: C -> VIX; Spread -> RTWI"    "GFC"                            01-Jul-2008    01-Apr-2009      -12.943           0.098656            -5.6129           0.82172         -3.6736       -2.1812           -4.1112          1.7158         -2.8519               -2.3955      
+    "A_Baseline"                "A: C -> VIX; Spread -> RTWI"    "Commodity-boom appreciation"    01-Jul-2009    01-Apr-2011       24.393            0.15483           -0.53291            16.124          4.3576        3.1211            6.7316         -5.5637          20.482                1.1679      
+    "A_Baseline"                "A: C -> VIX; Spread -> RTWI"    "Post-boom depreciation"         01-Jan-2013    01-Jul-2015      -21.025            0.11516           -0.60151           -12.585         -1.8804       -5.4325           0.99823          -1.639         -14.465              -0.64081      
+    "A_Baseline"                "A: C -> VIX; Spread -> RTWI"    "COVID shock"                    01-Jan-2020    01-Jan-2020       -3.325          0.0045684            -2.4225           0.79648         -4.6624       0.97019           0.59046          1.3983          -3.866                1.9887      
+    "A_Baseline"                "A: C -> VIX; Spread -> RTWI"    "COVID rebound"                  01-Apr-2020    01-Apr-2021       10.958           0.020746             3.3045             8.066          3.5007      -0.65341              1.48         -4.7604          11.567               -3.2805      
+    "A_Baseline"                "A: C -> VIX; Spread -> RTWI"    "Recent period"                  01-Jan-2022    01-Apr-2026       16.302            0.04991             6.6907           -5.3384        -0.13145       -4.6423           -1.0994          20.773         -5.4698                19.673      
+    "B_VIX_before_Commodity"    "B: VIX -> C; Spread -> RTWI"    "GFC"                            01-Jul-2008    01-Apr-2009      -12.943           0.098656            -5.6129           -1.8348         -1.0171       -2.1812           -4.1112          1.7158         -2.8519               -2.3955      
+    "B_VIX_before_Commodity"    "B: VIX -> C; Spread -> RTWI"    "Commodity-boom appreciation"    01-Jul-2009    01-Apr-2011       24.393            0.15483           -0.53291            17.389           3.093        3.1211            6.7316         -5.5637          20.482                1.1679      
+    "B_VIX_before_Commodity"    "B: VIX -> C; Spread -> RTWI"    "Post-boom depreciation"         01-Jan-2013    01-Jul-2015      -21.025            0.11516           -0.60151           -12.507         -1.9584       -5.4325           0.99823          -1.639         -14.465              -0.64081      
+    "B_VIX_before_Commodity"    "B: VIX -> C; Spread -> RTWI"    "COVID shock"                    01-Jan-2020    01-Jan-2020       -3.325          0.0045684            -2.4225          -0.20679         -3.6592       0.97019           0.59046          1.3983          -3.866                1.9887      
+    "B_VIX_before_Commodity"    "B: VIX -> C; Spread -> RTWI"    "COVID rebound"                  01-Apr-2020    01-Apr-2021       10.958           0.020746             3.3045            8.4293          3.1374      -0.65341              1.48         -4.7604          11.567               -3.2805      
+    "B_VIX_before_Commodity"    "B: VIX -> C; Spread -> RTWI"    "Recent period"                  01-Jan-2022    01-Apr-2026       16.302            0.04991             6.6907           -6.4166         0.94678       -4.6423           -1.0994          20.773         -5.4698                19.673      
+    "C_RTWI_before_Spread"      "C: C -> VIX; RTWI -> Spread"    "GFC"                            01-Jul-2008    01-Apr-2009      -12.943           0.098656            -5.6129           0.82172         -3.6736       -2.1812            2.9658         -5.3613         -2.8519               -2.3955      
+    "C_RTWI_before_Spread"      "C: C -> VIX; RTWI -> Spread"    "Commodity-boom appreciation"    01-Jul-2009    01-Apr-2011       24.393            0.15483           -0.53291            16.124          4.3576        3.1211            2.0113        -0.84341          20.482                1.1679      
+    "C_RTWI_before_Spread"      "C: C -> VIX; RTWI -> Spread"    "Post-boom depreciation"         01-Jan-2013    01-Jul-2015      -21.025            0.11516           -0.60151           -12.585         -1.8804       -5.4325          -0.74634         0.10553         -14.465              -0.64081      
+    "C_RTWI_before_Spread"      "C: C -> VIX; RTWI -> Spread"    "COVID shock"                    01-Jan-2020    01-Jan-2020       -3.325          0.0045684            -2.4225           0.79648         -4.6624       0.97019            -0.216          2.2047          -3.866                1.9887      
+    "C_RTWI_before_Spread"      "C: C -> VIX; RTWI -> Spread"    "COVID rebound"                  01-Apr-2020    01-Apr-2021       10.958           0.020746             3.3045             8.066          3.5007      -0.65341          -0.28745          -2.993          11.567               -3.2805      
+    "C_RTWI_before_Spread"      "C: C -> VIX; RTWI -> Spread"    "Recent period"                  01-Jan-2022    01-Apr-2026       16.302            0.04991             6.6907           -5.3384        -0.13145       -4.6423           -1.3442          21.018         -5.4698                19.673      
+    "D_Swap_Both"               "D: VIX -> C; RTWI -> Spread"    "GFC"                            01-Jul-2008    01-Apr-2009      -12.943           0.098656            -5.6129           -1.8348         -1.0171       -2.1812            2.9658         -5.3613         -2.8519               -2.3955      
+    "D_Swap_Both"               "D: VIX -> C; RTWI -> Spread"    "Commodity-boom appreciation"    01-Jul-2009    01-Apr-2011       24.393            0.15483           -0.53291            17.389           3.093        3.1211            2.0113        -0.84341          20.482                1.1679      
+    "D_Swap_Both"               "D: VIX -> C; RTWI -> Spread"    "Post-boom depreciation"         01-Jan-2013    01-Jul-2015      -21.025            0.11516           -0.60151           -12.507         -1.9584       -5.4325          -0.74634         0.10553         -14.465              -0.64081      
+    "D_Swap_Both"               "D: VIX -> C; RTWI -> Spread"    "COVID shock"                    01-Jan-2020    01-Jan-2020       -3.325          0.0045684            -2.4225          -0.20679         -3.6592       0.97019            -0.216          2.2047          -3.866                1.9887      
+    "D_Swap_Both"               "D: VIX -> C; RTWI -> Spread"    "COVID rebound"                  01-Apr-2020    01-Apr-2021       10.958           0.020746             3.3045            8.4293          3.1374      -0.65341          -0.28745          -2.993          11.567               -3.2805      
+    "D_Swap_Both"               "D: VIX -> C; RTWI -> Spread"    "Recent period"                  01-Jan-2022    01-Apr-2026       16.302            0.04991             6.6907           -6.4166         0.94678       -4.6423           -1.3442          21.018         -5.4698                19.673      
+
+
+============================================================
+EPISODE IDENTIFICATION SENSITIVITY
+============================================================
+               Episode               Commodity_Min    Commodity_Max    Commodity_Range    VIX_Min     VIX_Max    VIX_Range    CommodityVIX_Min    CommodityVIX_Max    CommodityVIX_Range    Spread_Min    Spread_Max    Spread_Range    ResidualFX_Min    ResidualFX_Max    ResidualFX_Range    YieldFX_Min    YieldFX_Max    YieldFX_Range
+    _____________________________    _____________    _____________    _______________    ________    _______    _________    ________________    ________________    __________________    __________    __________    ____________    ______________    ______________    ________________    ___________    ___________    _____________
+
+    "GFC"                               -1.8348          0.82172            2.6565         -3.6736    -1.0171      2.6565         -2.8519             -2.8519             3.3751e-14          -4.1112       2.9658          7.077          -5.3613             1.7158             7.077           -2.3955        -2.3955       3.6993e-13  
+    "Commodity-boom appreciation"        16.124           17.389            1.2646           3.093     4.3576      1.2646          20.482              20.482             2.1316e-14           2.0113       6.7316         4.7203          -5.5637           -0.84341            4.7203            1.1679         1.1679       2.0206e-13  
+    "Post-boom depreciation"            -12.585          -12.507          0.077995         -1.9584    -1.8804    0.077995         -14.465             -14.465             1.1724e-13         -0.74634      0.99823         1.7446           -1.639            0.10553            1.7446          -0.64081       -0.64081       5.9419e-13  
+    "COVID shock"                      -0.20679          0.79648            1.0033         -4.6624    -3.6592      1.0033          -3.866              -3.866              3.908e-14           -0.216      0.59046        0.80646           1.3983             2.2047           0.80646            1.9887         1.9887       2.2693e-13  
+    "COVID rebound"                       8.066           8.4293           0.36324          3.1374     3.5007     0.36324          11.567              11.567             4.0856e-14         -0.28745         1.48         1.7674          -4.7604             -2.993            1.7674           -3.2805        -3.2805       4.1034e-13  
+    "Recent period"                     -6.4166          -5.3384            1.0782        -0.13145    0.94678      1.0782         -5.4698             -5.4698             1.2346e-13          -1.3442      -1.0994        0.24486           20.773             21.018           0.24486            19.673         19.673       2.3093e-13  
+
+ 
+             Model              MaximumRoot    MaximumAccountingError
+    ________________________    ___________    ______________________
+
+    "A_Baseline"                  0.97519            1.3642e-12      
+    "B_VIX_before_Commodity"      0.97519            1.8758e-12      
+    "C_RTWI_before_Spread"        0.97519            1.3642e-12      
+    "D_Swap_Both"                 0.97519            1.8758e-12      
+
+ 
+    MaxActualRTWIDifference    MaxBaselineDifference    MaxTotalShockDifference    MaxCommodityVIXDifference    MaxYieldFXDifference
+    _______________________    _____________________    _______________________    _________________________    ____________________
+
+               0                         0                    6.7502e-13                  2.5224e-13                 5.1048e-13     
+
+
+============================================================
+HD ORDERING ROBUSTNESS COMPLETE
+============================================================
+
+Maximum pair-group differences across full history:
+Commodity + VIX:      2.52242671195e-13
+Spread + Residual FX: 5.10480546723e-13
+
+Locked baseline:
+SVAR(2), Model A
+Maximum root: 0.9752
+
+Robustness workbook:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/svar_hd_ordering_robustness.xlsx
+
+Locked baseline MAT file:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/classical_svar2_baseline_locked.mat

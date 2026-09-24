@@ -1,0 +1,131 @@
+
+============================================================
+BASELINE SVAR BOOTSTRAP
+============================================================
+Sample: 1995Q1 to 2026Q2
+Observations: 126
+
+Original VAR maximum root: 0.9752
+
+============================================================
+RUNNING KILIAN BOOTSTRAP-AFTER-BOOTSTRAP
+============================================================
+First-stage replications:  1000
+Second-stage replications: 1000
+Bias correction stability adjustment: delta = 0.4386
+
+Bootstrap bias diagnostics:
+Original VAR maximum root:       0.9752
+Bias-corrected VAR maximum root: 0.9999
+Maximum absolute bias:           25.8397
+
+Constructing bootstrap IRFs and FEVD...
+Completed bootstrap draw 100 of 1000
+Completed bootstrap draw 200 of 1000
+Completed bootstrap draw 300 of 1000
+Completed bootstrap draw 400 of 1000
+Completed bootstrap draw 500 of 1000
+Completed bootstrap draw 600 of 1000
+Completed bootstrap draw 700 of 1000
+Completed bootstrap draw 800 of 1000
+Completed bootstrap draw 900 of 1000
+Completed bootstrap draw 1000 of 1000
+
+============================================================
+SECOND-STAGE BOOTSTRAP STABILITY
+============================================================
+Unstable draws: 72 out of 1000 (7.2%)
+Median maximum root: 0.9702
+95th percentile maximum root: 1.0032
+Maximum maximum root: 1.1539
+
+============================================================
+RTWI IRF SIGNIFICANCE HORIZONS
+============================================================
+
+95% intervals exclude zero:
+Commodity: [0 5 6 7 8]
+VIX:       0
+Spread:    0
+
+85% intervals exclude zero:
+Commodity: [0 1 3 4 5 6 7 8 9 10 11 12 13 14 15 16]
+VIX:       [0 1]
+Spread:    [0 1 2 3 4 5 6]
+
+============================================================
+RTWI FEVD WITH BOOTSTRAP INTERVALS
+============================================================
+          Shock           Horizon    Point     Lower95    Lower85    Upper85    Upper95
+    __________________    _______    ______    _______    _______    _______    _______
+
+    "Commodity"              1       16.635    0.32833     1.0714    26.789     31.056 
+    "Commodity"              4       20.178    0.55304     1.1308    33.285     41.525 
+    "Commodity"              8        32.34     1.4389     3.9583    45.784      53.94 
+    "Commodity"             12       40.782     2.0285     5.9597    53.832     60.445 
+    "Commodity"             20       48.695     3.1905     6.9968    59.429     68.507 
+    "Commodity"             40       52.784     3.9826     7.5966    64.499     74.098 
+    "VIX"                    1       11.745    0.95809     1.9999    27.938     32.837 
+    "VIX"                    4       6.6521    0.74586     1.4669    20.715     28.424 
+    "VIX"                    8       4.7438    0.84968     1.4315    19.948     27.998 
+    "VIX"                   12       3.9171    0.83389     1.4529    20.292     29.857 
+    "VIX"                   20       3.1385    0.72542     1.4083    20.299     31.342 
+    "VIX"                   40       2.6066    0.78372     1.3559    22.991     31.744 
+    "AU-US 2yr Spread"       1       4.9017    0.19715    0.69953    15.688     20.476 
+    "AU-US 2yr Spread"       4       7.1909    0.29757    0.80141    24.346     29.729 
+    "AU-US 2yr Spread"       8       9.0818    0.68798     1.6245    26.182     35.061 
+    "AU-US 2yr Spread"      12       9.9538    0.85586     1.9059    28.657     36.986 
+    "AU-US 2yr Spread"      20       10.228    0.90529     1.9175    29.354     38.641 
+    "AU-US 2yr Spread"      40       9.0666    0.71078       1.66    27.957     36.685 
+    "Residual FX"            1       51.558     30.331      34.43    65.857     69.361 
+    "Residual FX"            4       55.246     26.419     31.795    68.754     73.718 
+    "Residual FX"            8       41.198     14.263     20.453    56.517     63.995 
+    "Residual FX"           12       32.032      10.74     14.534    49.504     58.779 
+    "Residual FX"           20       23.497     6.7908     9.3064    43.563     51.602 
+    "Residual FX"           40       17.678     3.9276     6.0162    38.522      48.49 
+
+
+============================================================
+GROUPED RTWI FEVD WITH BOOTSTRAP INTERVALS
+============================================================
+            Group             Horizon    Point     Lower95    Lower85    Upper85    Upper95
+    ______________________    _______    ______    _______    _______    _______    _______
+
+    "Commodity + VIX"            1        28.38    12.473     15.619     36.172     39.171 
+    "Commodity + VIX"            4        26.83     6.524     8.7916     40.072     46.072 
+    "Commodity + VIX"            8       37.084    8.4434      12.43     51.758     58.773 
+    "Commodity + VIX"           12       44.699    9.8003     14.527     59.359      65.56 
+    "Commodity + VIX"           20       51.834    10.713     15.561     66.402     72.496 
+    "Commodity + VIX"           40        55.39    10.538     16.684     71.515      78.47 
+    "Spread + Residual FX"       1       56.459    33.338     38.866     75.673     81.493 
+    "Spread + Residual FX"       4       62.437     30.74     38.612     78.892     84.064 
+    "Spread + Residual FX"       8        50.28    20.821     27.684     69.728     76.718 
+    "Spread + Residual FX"      12       41.985    15.844     21.471     65.701     72.202 
+    "Spread + Residual FX"      20       33.725    11.034     15.828     60.365     69.914 
+    "Spread + Residual FX"      40       26.745    6.7486     10.385     56.013      66.73 
+
+ 
+    Nboot1    Nboot2    RNGSeed    OriginalMaxRoot    BiasCorrectedMaxRoot    MaxAbsoluteBias    UnstableDraws    UnstablePercent    MedianBootstrapRoot    P95BootstrapRoot    MaximumBootstrapRoot
+    ______    ______    _______    _______________    ____________________    _______________    _____________    _______________    ___________________    ________________    ____________________
+
+     1000      1000      12345         0.97519              0.99989                25.84              72                7.2                0.9702                1.0032                1.1539       
+
+
+============================================================
+SVAR BOOTSTRAP COMPLETE
+============================================================
+Sample: 1995Q1 to 2026Q2
+Original max root:       0.9752
+Bias-corrected max root: 0.9999
+Unstable bootstrap draws: 72 / 1000
+
+95% significant RTWI horizons:
+Commodity: [0 5 6 7 8]
+VIX:       0
+Spread:    0
+
+Excel results:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/svar_bootstrap_results.xlsx
+
+MATLAB results:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/svar_bootstrap.mat
