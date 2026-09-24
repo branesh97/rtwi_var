@@ -1,0 +1,651 @@
+---
+title: "Australian dollar drivers: initial model and estimation notes"
+subtitle: "ESSA Short Supply article — initial estimation"
+format:
+  html:
+    toc: true
+    number-sections: true
+    code-fold: true
+  pdf:
+    toc: true
+    number-sections: true
+execute:
+  echo: false
+---
+
+# Purpose and scope
+
+These notes document the initial empirical model used for the ESSA *Short Supply* article on the Australian dollar.
+
+The aim is not to build a definitive structural model of the Australian exchange rate. The aim is to use a compact small-open-economy system to ask two questions:
+
+1. Which types of shocks tend to account for unexpected movements in the Australian real trade-weighted index (RTWI) at different forecast horizons?
+2. Which shocks contributed to major historical Australian-dollar episodes?
+
+The analysis builds on ideas used in Manalo, Perera and Rees (2015), while changing the variables, sample and substantive focus. The earlier replication work is stored separately at:
+
+<https://github.com/branesh97/replication_manalo_perera_rees_2015>
+
+The code in this folder should therefore be viewed as **initial article-stage estimation**. A later journal-oriented project may expand the information set and revisit identification.
+
+# Data and sample
+
+The estimation sample is **1995Q1–2026Q2**, giving 126 quarterly observations.
+
+The baseline system contains seven variables:
+
+| Position | Variable | Role |
+|---:|---|---|
+| 1 | US real GDP gap | foreign activity |
+| 2 | RBA commodity price index | commodity-price conditions |
+| 3 | VIX | global financial risk |
+| 4 | Australian real GDP gap | domestic activity |
+| 5 | Australian trimmed-mean inflation | domestic inflation |
+| 6 | AU–US two-year government-bond yield spread | relative financial conditions |
+| 7 | Australian real TWI | exchange rate |
+
+The first three variables form the **foreign block**. The last four form the **domestic block**.
+
+## Transformations
+
+The baseline transformations are:
+
+- US real GDP: `100 × log(real GDP)`, then detrended using a quadratic time trend;
+- commodity prices: `100 × log(index)`;
+- VIX: `100 × log(VIX)`;
+- Australian real GDP: `100 × log(real GDP)`, then detrended using a quadratic time trend;
+- trimmed-mean inflation: observed quarterly series used in the dataset;
+- AU–US two-year yield spread: level, in percentage points;
+- real TWI: `100 × log(RTWI)`.
+
+For real GDP, the estimated gap is the residual from
+
+$$
+100\log(Y_t) = \alpha + \beta_1 t + \beta_2 t^2 + \widetilde{Y}_t,
+$$
+
+where $\widetilde{Y}_t$ is the GDP-gap measure used in the VAR.
+
+The exact raw series and source notes are stored in `data/data_collected.xlsx`.
+
+# Reduced-form VAR
+
+Let
+
+$$
+y_t =
+\begin{bmatrix}
+f_t \\
+d_t
+\end{bmatrix},
+$$
+
+where $f_t$ is the foreign block and $d_t$ is the domestic block.
+
+The baseline reduced-form model is a VAR with two lags:
+
+$$
+y_t
+=
+c
++
+A_1 y_{t-1}
++
+A_2 y_{t-2}
++
+u_t,
+$$
+
+with
+
+$$
+E(u_t)=0,
+\qquad
+E(u_tu_t')=\Sigma_u.
+$$
+
+The lag order is fixed at
+
+$$
+p=2.
+$$
+
+This is consistent with the specification used in the initial structural analysis and is checked against one- and three-lag alternatives in the robustness exercises.
+
+# Small-open-economy restriction
+
+Australia is treated as a small open economy. Domestic Australian variables are not allowed to affect the foreign block with a lag.
+
+Partitioning each lag matrix gives
+
+$$
+A_\ell
+=
+\begin{bmatrix}
+A_{ff,\ell} & 0 \\
+A_{df,\ell} & A_{dd,\ell}
+\end{bmatrix},
+\qquad
+\ell=1,2.
+$$
+
+Therefore:
+
+- foreign equations contain a constant and lags of the three foreign variables only;
+- domestic equations contain a constant and lags of all seven variables.
+
+The restricted coefficients are stored as exact zeros.
+
+This block-exogeneity restriction is imposed in both `olsvar_soe.m` and `bvar_soe.m`, and it is also preserved when bootstrap samples or posterior draws are generated.
+
+# Structural identification
+
+The reduced-form innovations are mapped into orthogonal structural shocks as
+
+$$
+u_t = B\varepsilon_t,
+$$
+
+where
+
+$$
+E(\varepsilon_t\varepsilon_t')=I
+$$
+
+and
+
+$$
+BB'=\Sigma_u.
+$$
+
+The baseline model uses a recursive Cholesky identification with the ordering
+
+$$
+[
+\text{US GDP},
+\text{commodity prices},
+\text{VIX},
+\text{Australian GDP},
+\text{inflation},
+\text{AU--US 2yr spread},
+\text{RTWI}
+].
+$$
+
+Because $B$ is lower triangular, variables earlier in the ordering can affect variables later in the ordering contemporaneously, while variables later in the ordering affect earlier variables only with a lag.
+
+The baseline interpretation is therefore:
+
+- US activity can affect all other variables contemporaneously;
+- commodity prices can respond contemporaneously to US activity and can affect later variables;
+- VIX can respond contemporaneously to preceding foreign shocks and can affect the domestic block;
+- Australian activity is ordered before inflation and financial variables;
+- trimmed-mean inflation is ordered before the yield spread;
+- the AU–US two-year spread can affect the RTWI contemporaneously;
+- the RTWI is ordered last.
+
+The final structural shock is therefore an **exchange-rate-specific shock**: a contemporaneous RTWI innovation that is not attributed to the preceding macroeconomic shocks in this recursive system.
+
+It should not be interpreted as a single primitive economic force.
+
+# Ordering robustness
+
+The recursive ordering is an identifying assumption, so the main relationships are checked under four orderings:
+
+1. commodity prices before VIX; spread before RTWI;
+2. VIX before commodity prices; spread before RTWI;
+3. commodity prices before VIX; RTWI before spread;
+4. VIX before commodity prices; RTWI before spread.
+
+The historical narrative is not based solely on one arbitrary contemporaneous ordering. However, the exact allocation between closely related contemporaneous shocks can change, especially for the relative-yield and exchange-rate-specific components.
+
+# Impulse responses
+
+The moving-average representation is
+
+$$
+y_t
+=
+\mu
++
+\sum_{h=0}^{\infty}
+\Psi_h B\varepsilon_{t-h}.
+$$
+
+The impulse response of variable $j$ to structural shock $k$ at horizon $h$ is the corresponding element of
+
+$$
+\Psi_h B.
+$$
+
+For interpretation, the main IRF checks normalize shocks to economically intuitive magnitudes:
+
+- commodity-price shock: **+10 log points**;
+- VIX shock: **+10 log points**;
+- AU–US two-year spread shock: **+1 percentage point = +100 basis points**.
+
+The IRFs are used primarily as consistency checks. The article itself focuses more heavily on FEVDs and historical decompositions.
+
+# Forecast-error variance decomposition
+
+For forecast horizon $H$, the structural forecast error for the RTWI can be written as the sum of the effects of orthogonal structural shocks over the horizon.
+
+For RTWI variable $j$ and shock $k$, the FEVD share is
+
+$$
+\theta_{j,k}(H)
+=
+\frac{
+\sum_{h=0}^{H-1}
+\left(
+e_j'
+\Psi_h
+b_k
+\right)^2
+}{
+\sum_{m=1}^{N}
+\sum_{h=0}^{H-1}
+\left(
+e_j'
+\Psi_h
+b_m
+\right)^2
+},
+$$
+
+where $b_k$ is column $k$ of $B$ and $e_j$ selects the RTWI equation.
+
+The FEVD therefore answers:
+
+> What share of unexpected RTWI movements at horizon $H$ is associated with each structural shock?
+
+The article plots horizons from one to 20 quarters.
+
+The principal displayed shocks are:
+
+- commodity prices;
+- VIX / global risk;
+- relative yields;
+- other exchange-rate shocks.
+
+The shares across those four panels do not sum to 100 per cent because the full model also contains US activity, Australian activity and inflation shocks.
+
+# Classical SVAR uncertainty
+
+The classical SVAR uses a two-stage residual bootstrap adapted to the SOE restriction.
+
+## First stage: finite-sample bias correction
+
+Bootstrap samples are generated recursively by resampling entire reduced-form residual vectors. Resampling residuals by row preserves their contemporaneous covariance.
+
+The SOE-restricted VAR is re-estimated for each artificial sample.
+
+If $\widehat{\Phi}$ denotes the original VAR coefficients and $\widehat{\Phi}^{*(b)}$ denotes a first-stage bootstrap estimate, the estimated bias is
+
+$$
+\widehat{\text{bias}}
+=
+\widehat{\Phi}
+-
+\frac{1}{B_1}
+\sum_{b=1}^{B_1}
+\widehat{\Phi}^{*(b)}.
+$$
+
+The bias-corrected coefficient matrix is
+
+$$
+\widehat{\Phi}_{BC}
+=
+\widehat{\Phi}
++
+\widehat{\text{bias}}.
+$$
+
+If the full correction produces an unstable VAR, the correction is shrunk towards the original estimate until stability is restored.
+
+## Second stage
+
+Artificial samples are then generated from the bias-corrected dynamics and the restricted VAR is re-estimated in each replication.
+
+The article-oriented bootstrap uses central:
+
+- 70% intervals;
+- 95% intervals.
+
+The 70% interval is shown as a descriptive uncertainty region. It is **not** described as a conventional statistical-significance criterion. Conventional significance discussion is based on whether the 95% interval excludes zero.
+
+# Historical decomposition
+
+For a fitted structural VAR, the observed series can be decomposed into:
+
+1. deterministic/baseline dynamics;
+2. the accumulated contribution of each structural shock.
+
+For the RTWI,
+
+$$
+RTWI_t
+=
+RTWI_t^{baseline}
++
+\sum_{k=1}^{N}
+HD_{k,t}.
+$$
+
+The baseline contains the effect of the constant and initial conditions when subsequent structural innovations are set to zero.
+
+The article groups the structural contributions as:
+
+- global activity;
+- commodity prices;
+- global risk (VIX);
+- domestic macro;
+- relative yields;
+- other exchange-rate shocks.
+
+“Domestic macro” combines the Australian GDP and inflation shock contributions.
+
+For an episode from $t_0$ to $t_1$, the contribution of shock $k$ to the episode change is
+
+$$
+\Delta HD_k
+=
+HD_{k,t_1}
+-
+HD_{k,t_0}.
+$$
+
+The corresponding observed change is
+
+$$
+\Delta RTWI
+=
+RTWI_{t_1}
+-
+RTWI_{t_0}.
+$$
+
+The sum of the baseline change and all structural contributions reconstructs the observed episode change up to numerical precision.
+
+# Bayesian VAR
+
+The Bayesian specification uses the same:
+
+- seven variables;
+- sample;
+- lag order;
+- SOE restrictions;
+- recursive structural ordering.
+
+The Bayesian component is introduced to shrink the relatively large number of VAR coefficients and to propagate parameter uncertainty into the FEVD and historical-decomposition exercises.
+
+# BVAR prior
+
+The coefficient prior is Minnesota-style.
+
+For an allowed coefficient on variable $j$ at lag $\ell$ in equation $i$, the prior variance is
+
+$$
+\operatorname{Var}(\beta_{ij,\ell})
+=
+\frac{\lambda^2}{\ell^{2d}}
+\frac{\sigma_i^2}{\sigma_j^2},
+$$
+
+where:
+
+- $\lambda$ is the overall tightness parameter;
+- $d$ is the lag-decay exponent;
+- $\sigma_i^2$ and $\sigma_j^2$ are residual variances from univariate AR models.
+
+The baseline values are
+
+$$
+\lambda = 0.20,
+\qquad
+d = 1.
+$$
+
+The intercept prior is diffuse, with prior variance
+
+$$
+10^6.
+$$
+
+## Prior means
+
+The own-first-lag prior means are set explicitly as
+
+$$
+[0,\ 1,\ 0,\ 0,\ 0,\ 0,\ 1]'.
+$$
+
+Thus:
+
+- commodity prices have own-first-lag prior mean 1;
+- the RTWI has own-first-lag prior mean 1;
+- US GDP gap, VIX, Australian GDP gap, inflation and the yield spread have own-first-lag prior mean 0;
+- all other lag coefficients have prior mean 0.
+
+This choice avoids imposing random-walk prior means on detrended GDP gaps, the VIX, inflation or the spread.
+
+## Prior for the covariance matrix
+
+The reduced-form covariance matrix has an inverse-Wishart prior.
+
+The degrees of freedom are
+
+$$
+\nu_0 = N+2.
+$$
+
+The scale matrix is chosen so that the prior mean diagonal is approximately the set of univariate AR residual variances.
+
+# BVAR posterior simulation
+
+The restricted BVAR is sampled with a Gibbs algorithm alternating between:
+
+1. coefficients conditional on the covariance matrix;
+2. the covariance matrix conditional on coefficients.
+
+The final article baseline uses:
+
+| Setting | Value |
+|---|---:|
+| Lag order | 2 |
+| Minnesota tightness $\lambda$ | 0.20 |
+| Lag decay | 1 |
+| Burn-in | 5,000 |
+| Retained posterior draws | 10,000 |
+| Thinning | 1 |
+| Stability conditioning | yes |
+| Maximum accepted companion root | 0.9999 |
+| Residual draws stored | yes |
+
+The final posterior is conditioned on stability. Coefficient draws with a maximum companion root at or above 0.9999 are rejected and redrawn.
+
+In the baseline run, approximately one-fifth of attempted coefficient draws were rejected by the stability condition. The exact rejection rate is an output diagnostic rather than a fixed modelling assumption.
+
+# BVAR FEVD uncertainty
+
+For every retained posterior draw:
+
+1. obtain the draw of the VAR coefficients and covariance matrix;
+2. compute the Cholesky impact matrix;
+3. calculate the RTWI FEVD;
+4. store the FEVD share for each shock and horizon.
+
+The article reports:
+
+- posterior median;
+- central 70% credible interval;
+- central 95% credible interval.
+
+The classical SVAR point estimate is shown as a dashed comparator in the article FEVD figure.
+
+# BVAR historical decomposition
+
+Historical decomposition is also computed over posterior draws.
+
+For the **stacked article episode chart**, the decomposition uses the **posterior-mean parameter model**:
+
+$$
+\bar{\Phi}
+=
+E(\Phi\mid Y),
+\qquad
+\bar{\Sigma}
+=
+E(\Sigma\mid Y).
+$$
+
+The reason is accounting: a single coherent parameter model produces structural contributions that sum exactly to the observed historical decomposition.
+
+Posterior medians of individual historical contributions generally do not obey an exact adding-up identity when stacked together, because the median of a sum need not equal the sum of medians.
+
+Posterior uncertainty is therefore reported separately using posterior-draw distributions and credible intervals.
+
+# Main historical episodes
+
+The article version uses a compact set of episodes, including:
+
+- GFC;
+- commodity-boom appreciation;
+- post-boom depreciation;
+- COVID shock;
+- COVID rebound;
+- recent period.
+
+A separate diagnostic splits the recent period around 2025Q3 to check whether the large exchange-rate-specific contribution is simply an artefact of aggregating 2022–26. The qualitative result survives that split: relative yields contribute positively to the latest appreciation, but a sizeable “other exchange-rate shock” remains.
+
+This diagnostic is useful for interpretation but need not appear as a separate bar in the magazine article.
+
+# Robustness exercises
+
+The initial analysis includes several robustness checks.
+
+## Lag length
+
+The classical model is re-estimated with:
+
+$$
+p \in \{1,2,3\}.
+$$
+
+The precise FEVD shares and IRF paths vary, but the main qualitative interpretation is not driven solely by the baseline two-lag choice.
+
+## Recursive ordering
+
+Commodity/VIX ordering and spread/RTWI ordering are changed.
+
+This is important because recursive structural labels depend on contemporaneous ordering.
+
+## Classical bootstrap stability
+
+The distribution of companion roots is examined, and intervals using only stable bootstrap draws are compared with intervals using all draws.
+
+This diagnostic indicated that wide uncertainty bands were not driven solely by a small set of explosive bootstrap draws.
+
+## BVAR prior tightness
+
+The substantive FEVD and historical-decomposition results are checked for
+
+$$
+\lambda
+\in
+\{0.10,\ 0.20,\ 0.30\}.
+$$
+
+The central historical narrative remains similar across these values.
+
+## SVAR versus BVAR
+
+The BVAR is not used to replace the classical SVAR mechanically. It is used as a shrinkage-based robustness specification.
+
+The article emphasises results that are broadly consistent across the two frameworks.
+
+# Interpretation of the exchange-rate-specific shock
+
+The final structural RTWI shock is labelled **other exchange-rate shocks** in the article.
+
+This label is deliberately broad.
+
+It captures RTWI innovations not contemporaneously attributed to the model's:
+
+- US activity shock;
+- commodity-price shock;
+- VIX shock;
+- Australian activity shock;
+- inflation shock;
+- AU–US two-year spread shock.
+
+Possible economic mechanisms inside this residual include, among other things:
+
+- broader US-dollar movements;
+- foreign interest-rate developments not captured by the bilateral AU–US spread;
+- China- or renminbi-related developments;
+- portfolio rebalancing;
+- currency hedging;
+- carry trades;
+- expectations that move financial markets before quarterly macroeconomic variables adjust.
+
+The present model **cannot distinguish these mechanisms**.
+
+This is especially important when interpreting the latest appreciation, for which the exchange-rate-specific component remains large.
+
+# What the initial model is designed to establish
+
+The initial ESSA analysis is designed to support a relatively modest claim:
+
+> The forces associated with Australian-dollar movements are horizon- and episode-specific.
+
+The empirical work is intended to show that:
+
+- exchange-rate-specific and risk shocks matter relatively more at short horizons;
+- commodity-price shocks become increasingly important over longer horizons;
+- historical episodes have very different decompositions;
+- no single driver provides a complete description of the Australian dollar over the full sample;
+- the latest appreciation contains a sizeable component not explained by the conventional measured drivers in this parsimonious system.
+
+# Limitations and possible journal-paper extensions
+
+A future journal-oriented model could consider:
+
+- major-trading-partner activity rather than US GDP alone;
+- China activity and renminbi variables;
+- effective foreign interest rates or multi-country yield differentials;
+- a broad US-dollar factor;
+- capital-flow and portfolio-positioning measures;
+- currency-hedging variables;
+- alternative global-risk measures;
+- sign restrictions, narrative restrictions or external instruments;
+- time variation or regime dependence;
+- a larger BVAR with a richer foreign block.
+
+These extensions are intentionally left outside the initial ESSA article analysis.
+
+# Key files
+
+The main empirical files are:
+
+- `svar_initial.m` — baseline classical SOE-SVAR;
+- `svar_bootstrap.m` — bootstrap uncertainty;
+- `svar_ordering_robustness.m` — recursive-ordering sensitivity;
+- `svar_lag_robustness.m` — lag sensitivity;
+- `svar_hd.m` and `svar_hd_final.m` — classical historical decomposition;
+- `bvar_baseline.m` — final stable SOE-BVAR;
+- `bvar_irf_check.m` — BVAR/SVAR IRF consistency;
+- `bvar_fevd_hd.m` — posterior FEVD and historical decomposition;
+- `bvar_fevd_hd_articlefig.m` — article FEVD and selected-episode HD figures;
+- `bvar_lambda_subs_robustness.m` — prior-tightness robustness.
+
+# References
+
+Manalo, J., Perera, D. and Rees, D. M. (2015), “Exchange Rate Movements and the Australian Economy”, *Economic Modelling*, 47, 53–62.
+
+Kilian, L. (1998), “Small-Sample Confidence Intervals for Impulse Response Functions”, *Review of Economics and Statistics*, 80, 218–230.
+
+The earlier replication repository is available at:
+
+<https://github.com/branesh97/replication_manalo_perera_rees_2015>
