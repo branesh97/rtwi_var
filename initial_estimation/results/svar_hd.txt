@@ -1,0 +1,49 @@
+
+============================================================
+SVAR HISTORICAL DECOMPOSITION
+============================================================
+Sample: 1995Q1 to 2026Q2
+T = 126
+
+Maximum VAR root: 0.9752
+
+============================================================
+HISTORICAL DECOMPOSITION ACCOUNTING CHECK
+============================================================
+Maximum absolute reconstruction error: 1.36424205266e-12
+PASS: baseline + structural shocks reconstruct the data.
+
+Maximum Real TWI accounting error: 5.11590769747e-13
+Maximum reconstructed RTWI-index error: 7.1054273576e-13
+
+============================================================
+SELECTED EPISODE CONTRIBUTIONS
+============================================================
+               Episode                  Start           End        Actual_RTWI_Change    Baseline_Dynamics    Global_Activity    Commodity_Prices      VIX       Domestic_Macro    Relative_Yields    Residual_FX    Accounting_Error
+    _____________________________    ___________    ___________    __________________    _________________    _______________    ________________    ________    ______________    _______________    ___________    ________________
+
+    "GFC"                            01-Jul-2008    01-Apr-2009         -12.943               0.098656            -5.6129            0.82172          -3.6736        -2.1812           -4.1112           1.7158        -2.0073e-13   
+    "Commodity-boom appreciation"    01-Jul-2009    01-Apr-2011          24.393                0.15483           -0.53291             16.124           4.3576         3.1211            6.7316          -5.5637         2.7711e-13   
+    "Post-boom depreciation"         01-Jan-2013    01-Jul-2015         -21.025                0.11516           -0.60151            -12.585          -1.8804        -5.4325           0.99823           -1.639         4.2633e-14   
+    "COVID shock"                    01-Jan-2020    01-Jan-2020          -3.325              0.0045684            -2.4225            0.79648          -4.6624        0.97019           0.59046           1.3983        -1.2346e-13   
+    "COVID rebound"                  01-Apr-2020    01-Apr-2021          10.958               0.020746             3.3045              8.066           3.5007       -0.65341              1.48          -4.7604        -5.6843e-14   
+    "Recent period"                  01-Jan-2022    01-Apr-2026          16.302                0.04991             6.6907            -5.3384         -0.13145        -4.6423           -1.0994           20.773         1.8474e-13   
+
+ 
+    Max_AllVariable_Error    Max_RTWI_Log_Error    Max_RTWI_Index_Error    Maximum_VAR_Root
+    _____________________    __________________    ____________________    ________________
+
+         1.3642e-12              5.1159e-13             7.1054e-13             0.97519     
+
+
+============================================================
+HISTORICAL DECOMPOSITION COMPLETE
+============================================================
+Maximum accounting error: 1.36424205266e-12
+Maximum VAR root: 0.9752
+
+Results workbook:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/svar_historical_decomposition.xlsx
+
+MATLAB results:
+/Users/branesh/Library/Mobile Documents/com~apple~CloudDocs/Monash/Master of Applied Econometrics/ETX5441 - Macroeconometrics - 2026 S2/Exchange rate factors/code/results/svar_historical_decomposition.mat
